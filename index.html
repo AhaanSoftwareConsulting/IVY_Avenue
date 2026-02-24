@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IvyAvenue</title>
+
+  <!-- Font (Optional but recommended) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./dist/output.css">
+  <link rel="stylesheet" href="./src/input.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+</head>
+
+<body class="bg-[#f4f4f4]">
+
+  <header class="relative text-[#1C1C1C]">
+    <nav class="flex items-center justify-between pr-4 md:pr-10 lg:pr-[100px]">
+
+      <!-- Logo (NO LEFT GAP) -->
+      <div class="flex items-center">
+        <a href="/" class="text-decoration-none"><img src="./images/logo.png" alt="Ivy Avenue" class="h-28 md:h-40"></a>
+      </div>
+
+      <!-- Desktop Menu -->
+      <div class="hidden lg:flex items-center font-medium font-raleway">
+
+        <!-- Menu -->
+        <ul class="flex  gap-5 items-center">
+          <li><a class="p-2.5 text-lg font-semibold font-raleway hover:underline" href="./collection.html">Shop</a></li>
+          <li><a class="p-2.5 text-lg font-semibold font-raleway hover:underline" href="#about">About</a></li>
+          <li><a class="p-2.5 text-lg font-semibold font-raleway hover:underline" href="#edit">Journal</a></li>
+          <li><a class="p-2.5 text-lg font-semibold font-raleway hover:underline" href="#gallery">Gallery</a></li>
+          <li><a class="p-2.5 text-lg font-semibold font-raleway hover:underline" href="#contact">Contact</a></li>
+        </ul>
+
+        <!-- Icons + CTA -->
+        <div class="flex items-center  ms-[30px]">
+          <div class="flex items-center gap-4">
+            <a href="javascript:void(0)" onclick="openSearch()"
+              class=" w-11 h-11 rounded-full border border-black flex items-center justify-center">
+              <img src="./images/magnifier.png" alt="" class="w-5 h-5">
+            </a>
+            <a href="javascript:void(0)" onclick="openCart()"
+              class="relative w-11 h-11 rounded-full border border-black flex items-center justify-center">
+              <img src="./images/shoppingBag.png" alt="" class="w-5 h-5" />
+
+              <span class="cart-count absolute top-1 right-1
+    bg-[#1A1817] text-white text-[11px] font-semibold
+     px-2 flex  rounded-full ">
+                0
+              </span>
+            </a>
+
+          </div>
+          <!-- CTA -->
+          <a href="#" class="relative w-[180px] h-[56px] group ms-[30px]
+         flex items-center justify-center">
+            <svg width="180" height="56" viewBox="0 0 180 56" xmlns="http://www.w3.org/2000/svg">
+              <!-- Button Shape -->
+              <path
+                d="M90 0.5C114.817 0.5 137.266 3.58114 153.493 8.55078C161.61 11.0365 168.142 13.9868 172.634 17.2393C177.137 20.4999 179.5 23.9946 179.5 27.5625C179.5 31.1304 177.137 34.6251 172.634 37.8857C168.142 41.1382 161.61 44.0885 153.493 46.5742C137.266 51.5439 114.817 54.625 90 54.625C65.1826 54.625 42.7343 51.5439 26.5068 46.5742C18.3901 44.0885 11.8582 41.1382 7.36621 37.8857C2.86295 34.6251 0.5 31.1304 0.5 27.5625C0.5 23.9946 2.86295 20.4999 7.36621 17.2393C11.8582 13.9868 18.3901 11.0365 26.5068 8.55078C42.7343 3.58114 65.1826 0.5 90 0.5Z"
+                fill="transparent" stroke="#1A1817" class="group-hover:fill-[#1A1817] transition" />
+
+              <!-- Button Text -->
+              <text x="90" y="33" text-anchor="middle" font-size="14" font-weight="600" fill="#1A1817" class="relative z-10 font-semibold text-base tracking-wide 
+           group-hover:fill-[#f4f4f4] transition">
+                Get In Touch
+
+              </text>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <!-- ================= MOBILE Menu Button ================= -->
+      <button class="lg:hidden" onclick="document.getElementById('mobileMenu').classList.remove('translate-x-full')">
+        <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px" fill="#1c1c1c">
+          <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
+        </svg>
+      </button>
+    </nav>
+
+    <div class="relative hidden lg:flex">
+
+      <!-- Search Box -->
+      <div id="searchBox"
+        class="absolute translate-x-1/2 mx-auto left-80 -top-4 w-[380px] bg-white rounded-xl shadow-lg p-4 hidden">
+        <button onclick="closeSearch()" class="absolute top-4 right-4 text-gray-500 hover:text-black text-2xl">
+          ×
+        </button>
+
+        <input id="searchInput" type="text" placeholder="Search products..."
+          class="w-full border  border-black rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#025DAE]"
+          oninput="searchProducts()" />
+
+        <!-- RESULTS -->
+        <ul id="searchResults" class="mt-3 max-h-64 overflow-y-auto divide-y"></ul>
+      </div>
+
+    </div>
+
+  </header>
+
+  <template id="search-item-template">
+    <li class="flex gap-3 items-center p-3 hover:bg-gray-100 cursor-pointer">
+      <img class="w-10 h-10 object-contain rounded" />
+      <div>
+        <p class="title text-sm font-medium text-gray-900"></p>
+        <p class="price text-xs text-gray-500"></p>
+      </div>
+    </li>
+  </template>
+  <!-- CART OVERLAY -->
+  <div id="cartOverlay" class="fixed inset-0 bg-black/50 z-40 hidden" onclick="closeCart()">
+  </div>
+
+  <!-- CART DRAWER -->
+  <div id="cartDrawer"
+    class="fixed top-0 right-0 w-[380px] h-full bg-white z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
+
+    <!-- HEADER -->
+    <div class="flex items-center justify-between p-5 border-b">
+      <h3 class="text-lg font-bold">Your Cart</h3>
+      <button onclick="closeCart()">✕</button>
+    </div>
+
+    <!-- ITEMS -->
+    <div id="cartItems" class="flex-1 overflow-y-auto p-5 space-y-4"></div>
+
+    <!-- FOOTER -->
+    <div class="p-5 border-t">
+      <div class="flex justify-between font-bold mb-4">
+        <span>Total</span>
+        <span id="cartTotal">$0</span>
+      </div>
+      <button class="w-full bg-[#1A1817] text-white py-3 rounded-md">
+        Checkout
+      </button>
+    </div>
+  </div>
+
+
+  <!-- ================= MOBILE OFFCANVAS ================= -->
+  <section>
+    <div id="mobileMenu"
+      class="fixed inset-0 bg-black/80 z-50 transform translate-x-full transition-transform duration-300">
+
+      <div class="absolute right-0 top-0 w-[240px] h-full bg-[#f4f4f4] py-8 items-start">
+        <button class="mb-8 text-black w-14 text-2xl items-start"
+          onclick="document.getElementById('mobileMenu').classList.add('translate-x-full')">
+          ✕
+        </button>
+        <div class="flex  flex-col">
+
+          <!-- Menu -->
+          <ul class="flex flex-col gap-10 ">
+            <li><a href="./collection.html" class="py-4 pl-8 pr-40 text-base font-semibold font-raleway hover:text-[#f4f4f4] hover:bg-[#1A1817]">Shop</a></li>
+            <li><a href="#about" class="py-4 pl-8 pr-40 text-base font-semibold font-raleway hover:text-[#f4f4f4] hover:bg-[#1A1817]">About</a></li>
+            <li><a href="#edit" class="py-4 pl-8 pr-40 text-base font-semibold font-raleway hover:text-[#f4f4f4] hover:bg-[#1A1817]">Journal</a></li>
+            <li><a href="#gallery" class="py-4 pl-8 pr-40 text-base font-semibold font-raleway hover:text-[#f4f4f4] hover:bg-[#1A1817]">Gallery</a></li>
+            <li><a href="#contact" class="py-4 pl-8 pr-40 text-base font-semibold font-raleway hover:text-[#f4f4f4] hover:bg-[#1A1817]">Contact</a></li>
+          </ul>
+
+          <!-- Icons + CTA -->
+          <div class="flex flex-col items-start px-8">
+            <div class="flex my-5 gap-4 ">
+              <a href="javascript:void(0)" onclick="openMobileSearch()"
+                class="w-11 h-11 rounded-full border border-black flex items-center justify-center">
+                <img src="./images/magnifier.png" alt="" class="w-5 h-5">
+              </a>
+              <a href="javascript:void(0)" onclick="openCart()"
+                class="relative  w-11 h-11 rounded-full border border-black flex items-center justify-center">
+                <img src="./images/shoppingBag.png" alt="" class="w-5 h-5">
+                <span class="cart-count absolute top-1 right-1
+    bg-[#1A1817] text-white text-[11px] font-semibold
+     px-2 flex  rounded-full ">
+                  0
+                </span>
+              </a>
+            </div>
+            <!-- CTA -->
+           <!-- CTA -->
+          <a href="#" class="relative w-[180px] h-[56px] group
+         flex items-center justify-center">
+            <svg width="180" height="56" viewBox="0 0 180 56" xmlns="http://www.w3.org/2000/svg">
+              <!-- Button Shape -->
+              <path
+                d="M90 0.5C114.817 0.5 137.266 3.58114 153.493 8.55078C161.61 11.0365 168.142 13.9868 172.634 17.2393C177.137 20.4999 179.5 23.9946 179.5 27.5625C179.5 31.1304 177.137 34.6251 172.634 37.8857C168.142 41.1382 161.61 44.0885 153.493 46.5742C137.266 51.5439 114.817 54.625 90 54.625C65.1826 54.625 42.7343 51.5439 26.5068 46.5742C18.3901 44.0885 11.8582 41.1382 7.36621 37.8857C2.86295 34.6251 0.5 31.1304 0.5 27.5625C0.5 23.9946 2.86295 20.4999 7.36621 17.2393C11.8582 13.9868 18.3901 11.0365 26.5068 8.55078C42.7343 3.58114 65.1826 0.5 90 0.5Z"
+                fill="transparent" stroke="#1A1817" class="group-hover:fill-[#1A1817] transition" />
+
+              <!-- Button Text -->
+              <text x="90" y="33" text-anchor="middle" font-size="14" font-weight="600" fill="#1A1817" class="relative z-10 font-semibold text-base tracking-wide 
+           group-hover:fill-[#f4f4f4] transition">
+                Get In Touch
+
+              </text>
+            </svg>
+          </a>
+
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SEARCH CONTAINER -->
+    <div class="relative lg:hidden">
+
+      <!-- Search Box -->
+      <div id="mobileSearch" class="fixed inset-0 bg-white z-[999] hidden flex flex-col"> <!-- Top bar -->
+        <div class="flex items-center gap-3 px-4 py-4 border-b"> <button onclick="closeMobileSearch()"
+            class="text-2xl">←</button> <input id="mobileSearchInput" type="text" placeholder="Search products..."
+            class="flex-1 border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#025DAE]"
+            oninput="searchProductsMobile()" /> </div> <!-- Results -->
+        <ul id="mobileSearchResults" class="flex-1 overflow-y-auto divide-y"></ul>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= Hero Section ================= -->
+  <section class="mt-16 px-4 md:px-10 lg:px-[100px] ">
+    <div class="max-w-7xl mx-auto z-10 relative items-start justify-start">
+
+      <h1
+        class="font-display italic min-[375px]:text-3xl min-[430px]:text-4xl leading-snug md:text-6xl lg:text-[77px] font-semibold md:leading-[77px] text-[#1A1817] reveal-left">
+        Modern Faux Florals,<br />
+        <span class="pl-9 lg:pl-[326px]"></span>Perfectly Styled
+      </h1>
+
+    </div>
+    <!-- IMAGE -->
+    <div class="flex justify-center z-0 -mt-6 reveal-up">
+      <img src="./images/banner.png" alt="Floral table"
+        class="w-full md:max-w-4xl object-cover grayscale hover:grayscale-0 transition duration-500">
+    </div>
+
+    <!-- TEXT OVER / AFTER IMAGE -->
+    <div class="max-w-4xl mx-auto items-start reveal-up">
+
+      <p
+        class="mt-8 font-display  min-[375px]:text-xl min-[430px]:text-2xl md:text-4xl font-medium leading-snug text-[#1A1817]">
+        Ivy Avenue creates sculptural faux florals designed for modern spaces.
+        Each stem is thoughtfully crafted to capture natural form and texture,
+        offering a timeless alternative to fresh flowers—beautiful, effortless,
+        and made to last.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= CategoryCollection Section ================= -->
+  <section class="relative bg-[#1A1817] text-white my-10 md:my-20 py-10 md:py-20  overflow-hidden reveal">
+
+    <!-- Floral overlays -->
+    <img src="./images/left-leaves.png" class="absolute left-0 top-0 h-full object-cover pointer-events-none" alt="" />
+    <img src="./images/leaves.png" class="absolute right-0 top-0 h-full object-cover pointer-events-none" alt="" />
+
+    <!-- Content wrapper -->
+    <div class="relative max-w-6xl mx-auto ">
+
+      <!-- Heading -->
+      <div class="text-center mx-auto">
+        <h2 class="font-display text-4xl md:text-[55px] leading-normal">
+          Bespoke<br class="md:hidden" /> Floral Solutions
+        </h2>
+        <p class="mt-4 text-lg text-[#f4f4f4]">
+          Custom faux floral styling for homes, studios, and commercial spaces.
+        </p>
+      </div>
+
+      <!-- Cards -->
+      <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 px-5 lg:px-0">
+
+        <!-- Card 1 -->
+        <div class="md:mt-0">
+          <a href="#" class="text-decoration-none"><img src="./images/one.png"
+              class="mx-auto grayscale hover:grayscale-0" alt="" /></a>
+
+          <h3 class="mt-8 font-display text-2xl md:text-xl lg:text-2xl">
+            Curated Faux Stem Collections
+          </h3>
+
+          <p class="mt-3 text-base text-white leading-relaxed">
+            Thoughtfully edited selections of individual stems, designed to work
+            beautifully together. Ideal for effortless styling with a refined,
+            cohesive look.
+          </p>
+
+          <div class=" relative flex justify-end border-b border-1-[#f4f4f4] py-6">
+            <a href="./collection.html" class="text-decoration-none"><img src="./images/white-arrow.png" alt=""></a>
+          </div>
+        </div>
+
+        <!-- Card 2 (lower) -->
+        <div class="md:mt-16">
+          <a href="#" class="text-decoration-none"><img src="./images/two.png"
+              class="mx-auto grayscale hover:grayscale-0" alt="" /></a>
+
+          <h3 class="mt-8 font-display text-2xl md:text-xl lg:text-2xl">
+            Custom Arrangement Styling
+          </h3>
+
+          <p class="mt-3 text-base text-white leading-relaxed">
+            Personalized faux floral arrangements tailored to your space,
+            aesthetic, and scale. Designed with balance, proportion, and longevity
+            in mind.
+          </p>
+
+          <div class=" relative flex justify-end border-b border-1-[#f4f4f4] py-6">
+            <a href="./collection.html" class="text-decoration-none"><img src="./images/white-arrow.png" alt=""></a>
+          </div>
+        </div>
+
+        <!-- Card 3 (lowest) -->
+        <div class="md:mt-32">
+          <a href="#" class="text-decoration-none"><img src="./images/three.png"
+              class="mx-auto grayscale hover:grayscale-0" alt="" /></a>
+
+          <h3 class="mt-8 font-display text-2xl md:text-xl lg:text-2xl">
+            Interior Styling Consultation
+          </h3>
+
+          <p class="mt-3 text-base text-white leading-relaxed">
+            One-to-one guidance to help you choose the right stems, heights, and
+            compositions for your home or workspace—virtually or in-studio.
+          </p>
+
+          <div class=" relative flex justify-end border-b border-1-[#f4f4f4] py-6">
+            <a href="./collection.html" class="text-decoration-none"><img src="./images/white-arrow.png" alt=""></a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CTA -->
+      <div class="mt-12 flex justify-center">
+        <a href="#" class="relative w-[211px] h-[55px] group md:ms-[30px]
+         flex items-center justify-center">
+          <svg width="211" height="55" viewBox="0 0 211 55" xmlns="http://www.w3.org/2000/svg">
+            <!-- Button Shape -->
+            <path
+              d="M105.5 0.5C134.603 0.5 160.934 3.5751 179.974 8.53809C189.497 11.0206 197.169 13.9687 202.447 17.2217C207.753 20.4917 210.5 23.9788 210.5 27.5C210.5 31.0212 207.753 34.5083 202.447 37.7783C197.169 41.0313 189.497 43.9794 179.974 46.4619C160.934 51.4249 134.603 54.5 105.5 54.5C76.3969 54.5 50.0662 51.4249 31.0264 46.4619C21.5027 43.9794 13.8311 41.0313 8.55273 37.7783C3.2467 34.5083 0.5 31.0212 0.5 27.5C0.5 23.9788 3.2467 20.4917 8.55273 17.2217C13.8311 13.9687 21.5027 11.0206 31.0264 8.53809C50.0662 3.5751 76.3969 0.5 105.5 0.5Z"
+              fill="transparent" stroke="#f4f4f4" stroke-width="1" class="group-hover:fill-[#F4F4F4] transition" />
+
+            <!-- Button Text -->
+            <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#f4f4f4" class="relative z-10 font-semibold text-base tracking-wide
+           group-hover:fill-[#1A1817] transition">
+              View All Services
+            </text>
+          </svg>
+        </a>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= About Section ================= -->
+  <section id="about" class="bg-[#f4f4f4] pb-10 md:pb-20 px-4 md:px-10 lg:px-[100px] reveal-left">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-9 items-start">
+
+        <!-- LEFT COLUMN -->
+        <div>
+          <h2 class="font-display text-4xl md:text-[55px] leading-normal">
+            Designed for Spaces<br>
+            That Breathe
+          </h2>
+
+          <p class="mt-6 text-base leading-normal leading-relaxed text-[#333333]">
+            Ivy Avenue was created with the belief that florals should enhance a space quietly and
+            confidently, without demanding attention. Rooted in a refined, monochrome aesthetic, our faux
+            stems are designed to celebrate form, texture, and balance—capturing the beauty of nature
+            through a modern, minimalist lens. Each stem is carefully considered, from its silhouette to its
+            finish, allowing it to stand alone as a sculptural element or blend seamlessly into a curated
+            arrangement.
+          </p>
+
+          <img src="./images/flower2.png" alt="" class="mt-16 w-full max-w-full grayscale hover:grayscale-0" />
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div>
+          <img src="./images/flower1.png" alt="" class="w-full max-w-full ml-auto grayscale hover:grayscale-0" />
+
+          <p class="mt-6 text-base leading-normal leading-relaxed text-[#333333]">
+            We design with longevity in mind, offering florals that remain timeless across seasons and
+            interiors, free from the limitations of freshness or maintenance. Whether styled in a private
+            residence, creative studio, or commercial setting, Ivy Avenue pieces bring a sense of calm,
+            intention, and enduring elegance to spaces that value simplicity, craftsmanship, and thoughtful
+            design.
+          </p>
+
+          <div class="mt-10">
+            <a href="#" class="relative w-[180px] h-[56px] group
+         flex items-center justify-center">
+              <!-- SVG shape -->
+              <svg class="absolute inset-0 w-full h-full" viewBox="0 0 180 56" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M90 0.5C114.817 0.5 137.266 3.58114 153.493 8.55078C161.61 11.0365 168.142 13.9868 172.634 17.2393C177.137 20.4999 179.5 23.9946 179.5 27.5625C179.5 31.1304 177.137 34.6251 172.634 37.8857C168.142 41.1382 161.61 44.0885 153.493 46.5742C137.266 51.5439 114.817 54.625 90 54.625C65.1826 54.625 42.7343 51.5439 26.5068 46.5742C18.3901 44.0885 11.8582 41.1382 7.36621 37.8857C2.86295 34.6251 0.5 31.1304 0.5 27.5625C0.5 23.9946 2.86295 20.4999 7.36621 17.2393C11.8582 13.9868 18.3901 11.0365 26.5068 8.55078C42.7343 3.58114 65.1826 0.5 90 0.5Z"
+                  fill="#F4F4F4" stroke="#1A1817" class="group-hover:fill-[#1A1817] transition" />
+              </svg>
+
+              <!-- Button text -->
+              <span class="relative z-10 font-medium text-base tracking-wide text-[#1A1817]
+           group-hover:text-white transition">
+                Learn More
+              </span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Curved-text-image Section ================= -->
+  <section class="relative bg-[#1A1817] text-white overflow-hidden reveal-up">
+    <!-- Right floral overlay -->
+    <div class="absolute right-0 top-0 h-full w-[40%] bg-no-repeat bg-right bg-contain pointer-events-none"
+      style="background-image: url('./images/Object.png');"></div>
+
+    <div class="max-w-7xl mx-auto px-6 py-10 md:py-24">
+      <div class="grid lg:grid-cols-2 gap-15 items-center">
+
+        <!-- LEFT COLUMN -->
+        <div class="relative">
+          <img src="./images/curvy.png" alt="">
+          <!-- Image -->
+          <img src="./images/florist.png" alt="Florist"
+            class="w-full md:w-[528px] h-auto md:h-[685px] object-cover grayscale hover:grayscale-0 -mt-16 md:-mt-28" />
+
+
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="relative  pt-8 lg:pt-16 ">
+
+
+          <h2 class="font-display text-4xl md:text-[55px] leading-normal mb-6">
+            The Thought<br />
+            Behind Ivy Avenue
+          </h2>
+
+          <p class="italic font-lg font-raleway text-white mb-6 max-w-md">
+            A quiet study of form, texture, and permanence.
+          </p>
+
+          <!-- Divider -->
+          <div class="border-t-2  border-white lg:-ml-[82px] mt-4 mb-8"></div>
+
+          <p class="text-base text-white font-raleway leading-relaxed max-w-lg">
+            Ivy Avenue was born from a fascination with restraint — the beauty of
+            a single stem, perfectly shaped, forever in bloom. As the founder, I
+            wanted to create florals that felt considered rather than decorative,
+            designed to live effortlessly within modern spaces. Each piece is
+            chosen for its structure, balance, and timeless appeal, offering an
+            alternative to excess and impermanence.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CTA Section ================= -->
+
+  <section id="edit" class="bg-[#f4f4f4] py-10 md:py-20 px-4 md:px-10 lg:px-[100px] reveal-left">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-9 items-start">
+
+        <!-- LEFT COLUMN -->
+        <div>
+          <img src="./images/edit1.png" alt=""
+            class="md:mt-14 lg:mt-28 w-full md:max-w-[607px] grayscale hover:grayscale-0" />
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="lg:ml-9">
+          <img src="./images/edit2.png" alt=""
+            class=" w-full md:max-w-[607px] md:max-w-[557px] grayscale hover:grayscale-0" />
+
+          <h2 class="mt-4 font-display text-5xl leading-normal">
+            Seasonal Edit
+          </h2>
+
+          <p
+            class="mt-2 font-raleway italic font-semibold text-justify text-[20px] leading-normal leading-relaxed text-[#333333]">
+            A curated collection of refined faux florals, thoughtfully <br class="hidden md:block" />selected to reflect
+            the mood,
+            texture, and quiet beauty of the<br class="hidden md:block" /> current season.
+          </p>
+
+          <div class="mt-5">
+            <a href="#" class="relative w-[180px] h-[56px] group
+         flex items-center justify-center">
+              <!-- SVG shape -->
+              <svg class="absolute inset-0 w-full h-full" viewBox="0 0 180 56" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M90 0.5C114.817 0.5 137.266 3.58114 153.493 8.55078C161.61 11.0365 168.142 13.9868 172.634 17.2393C177.137 20.4999 179.5 23.9946 179.5 27.5625C179.5 31.1304 177.137 34.6251 172.634 37.8857C168.142 41.1382 161.61 44.0885 153.493 46.5742C137.266 51.5439 114.817 54.625 90 54.625C65.1826 54.625 42.7343 51.5439 26.5068 46.5742C18.3901 44.0885 11.8582 41.1382 7.36621 37.8857C2.86295 34.6251 0.5 31.1304 0.5 27.5625C0.5 23.9946 2.86295 20.4999 7.36621 17.2393C11.8582 13.9868 18.3901 11.0365 26.5068 8.55078C42.7343 3.58114 65.1826 0.5 90 0.5Z"
+                  fill="#F4F4F4" stroke="#1A1817" class="group-hover:fill-[#1A1817] transition" />
+              </svg>
+
+              <!-- Button text -->
+              <span class="relative z-10 font-medium text-base tracking-wide text-[#1A1817]
+           group-hover:text-white transition">
+                Shop the edit
+              </span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================= Testimonial Section ================= -->
+  <section class="bg-[#ebebeb] py-10 md:py-20 px-4 md:px-10 lg:px-[100px] reveal-up">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-15 lg:gap-24 items-start">
+        <div>
+          <h2 class="font-display text-4xl md:text-[42px] lg:text-5xl leading-tight">
+            Words from Our Clients
+          </h2>
+          <p class=" font-raleway  font-semibold  text-lg lg:text-xl  mt-5 ml-2 italic leading-normal text[#333333]">
+            What our clients say after living with Ivy Avenue.
+          </p>
+        </div>
+
+        <div>
+          <p class="font-raleway   text-justify leading-snug text[#333333]">
+            Every Ivy Avenue stem is designed to be lived with — styled into real spaces, appreciated over
+            time, and quietly admired. These reflections come from clients who have welcomed our pieces into
+            their homes and experienced the beauty of restraint firsthand.
+          </p>
+
+          <div class="mt-5">
+            <a href="#" class="relative w-[253px] h-[55px] group
+         flex items-center justify-center">
+              <svg width="253" height="55" viewBox="0 0 253 55" xmlns="http://www.w3.org/2000/svg"
+                class="transition-all duration-300">
+                <!-- Shape -->
+                <path
+                  d="M126.5 0.5C161.407 0.5 192.995 3.57607 215.843 8.54297C227.271 11.0273 236.485 13.979 242.83 17.2402C246.003 18.8712 248.434 20.5676 250.065 22.3008C251.695 24.0316 252.5 25.7683 252.5 27.5C252.5 29.2317 251.695 30.9684 250.065 32.6992C248.434 34.4324 246.003 36.1288 242.83 37.7598C236.485 41.021 227.271 43.9727 215.843 46.457C192.995 51.4239 161.407 54.5 126.5 54.5C91.5927 54.5 60.005 51.4239 37.1572 46.457C25.7295 43.9727 16.5152 41.021 10.1699 37.7598C6.99667 36.1288 4.56599 34.4324 2.93457 32.6992C1.30539 30.9684 0.5 29.2317 0.5 27.5C0.5 25.7683 1.30539 24.0316 2.93457 22.3008C4.56599 20.5676 6.99667 18.8712 10.1699 17.2402C16.5152 13.979 25.7295 11.0273 37.1572 8.54297C60.005 3.57607 91.5927 0.5 126.5 0.5Z"
+                  fill="#EBEBEB" stroke="#1A1817" class="group-hover:fill-[#1A1817] transition-all duration-300" />
+
+                <!-- Text -->
+                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" class=" items-center justify-center  font-semibold  text-base font-raleway tracking-wide fill-[#1A1817]
+           group-hover:fill-white transition">
+                  Share Your Experience
+                </text>
+              </svg>
+            </a>
+
+          </div>
+        </div>
+      </div>
+
+  <div class="hidden xl:block mt-[50px] relative w-full max-w-[1240px] h-[291px] overflow-hidden mx-auto">
+
+
+    <!-- TRACK -->
+    <div
+      id="track"
+      class="flex gap-[25px] items-center transition-transform duration-500 ease-in-out"
+    >
+      <!-- CARD -->
+      <div class="w-[291px] h-[291px] p-[20px] 
+         bg-[linear-gradient(180deg,#1c1c1c,#0f0f0f)]
+         text-white flex-shrink-0
+         flex flex-col justify-between">
+        <div class="flex">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+        </div>
+        <h3 class="font-raleway font-bold italic text-lg">Manchester</h3>
+        <p class="font-raleway font-medium text-base">
+          Beautifully restrained. The stems feel intentional and elevated—the
+          room without ever demanding attention.
+        </p>
+        <span class="text-lg font-semibold font-raleway text-[#919191]">Laura P.</span>
+      </div>
+
+       <div class="w-[291px] h-[291px] p-[20px] 
+         bg-[linear-gradient(180deg,#1c1c1c,#0f0f0f)]
+         text-white flex-shrink-0
+         flex flex-col justify-between">
+        <div class="flex">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+        </div>
+        <h3 class="font-raleway font-bold italic text-lg">Liverpool</h3>
+        <p class="font-raleway font-medium text-base">
+          Ivy Avenue stems feel more like design objects than décor. They sit
+          beautifully in natural light.
+        </p>
+        <span class="text-lg font-semibold font-raleway text-[#919191]">Emma R.</span>
+      </div>
+
+       <div class="w-[291px] h-[291px] p-[20px] 
+         bg-[linear-gradient(180deg,#1c1c1c,#0f0f0f)]
+         text-white flex-shrink-0
+         flex flex-col justify-between">
+        <div class="flex">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+        </div>
+        <h3 class="font-raleway font-bold italic text-lg">Leicester</h3>
+        <p class="font-raleway font-medium text-base">
+          From the packaging to the final styling—everything felt thoughtful
+          and refined.
+        </p>
+        <span class="text-lg font-semibold font-raleway text-[#919191]">James L.</span>
+      </div>
+
+       <div class="w-[291px] h-[291px] p-[20px] 
+         bg-[linear-gradient(180deg,#1c1c1c,#0f0f0f)]
+         text-white flex-shrink-0
+         flex flex-col justify-between">
+        <div class="flex">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+        </div>
+        <h3 class="font-raleway font-bold italic text-lg">Coventry</h3>
+        <p class="font-raleway font-medium text-base">
+          I love how understated everything feels while still holding presence.
+        </p>
+        <span class="text-lg font-semibold font-raleway text-[#919191]">Sophie M.</span>
+      </div>
+
+       <div class="w-[291px] h-[291px] p-[20px] 
+         bg-[linear-gradient(180deg,#1c1c1c,#0f0f0f)]
+         text-white flex-shrink-0
+         flex flex-col justify-between">
+        <div class="flex">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+        </div>
+        <h3 class="font-raleway font-bold italic text-lg">Oxford</h3>
+        <p class="font-raleway font-medium text-base">
+          Elegant, modern, and incredibly well balanced. Perfect for evenings.
+        </p>
+       <span class="text-lg font-semibold font-raleway text-[#919191]">Daniel K.</span>
+      </div>
+        <div class="w-[291px] h-[291px] p-[20px] 
+         bg-[linear-gradient(180deg,#1c1c1c,#0f0f0f)]
+         text-white flex-shrink-0
+         flex flex-col justify-between">
+        <div class="flex">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+        </div>
+        <h3 class="font-raleway font-bold italic text-lg">Glasgow</h3>
+        <p class="font-raleway font-medium text-base">
+          Elegant, modern, and incredibly well balanced. Perfect for evenings.
+        </p>
+        <span class="text-lg font-semibold font-raleway text-[#919191]">Daniel K.</span>
+      </div>
+    </div>
+  </div>
+<!-- NAVIGATION -->
+  <div class="hidden xl:flex justify-center gap-16 mt-10">
+<button id="prev" class="hidden lg:block group rotate-180">
+  <svg
+    width="120"
+    height="45"
+    viewBox="0 0 120 45"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <!-- Clip path (same shape) -->
+    <defs>
+      <clipPath id="pillClip">
+        <path
+          d="M60 0.5C43.4755 0.5 28.5376 3.01288 17.749 7.05859
+             C12.353 9.08212 8.02094 11.4794 5.04688 14.1162
+             C2.07219 16.7536 0.5 19.5877 0.5 22.5
+             C0.5 25.4123 2.07219 28.2464 5.04688 30.8838
+             C8.02094 33.5206 12.353 35.9179 17.749 37.9414
+             C28.5376 41.9871 43.4755 44.5 60 44.5
+             C76.5245 44.5 91.4624 41.9871 102.251 37.9414
+             C107.647 35.9179 111.979 33.5206 114.953 30.8838
+             C117.928 28.2464 119.5 25.4123 119.5 22.5
+             C119.5 19.5877 117.928 16.7536 114.953 14.1162
+             C111.979 11.4794 107.647 9.08212 102.251 7.05859
+             C91.4624 3.01288 76.5245 0.5 60 0.5Z"
+        />
+      </clipPath>
+    </defs>
+
+    <!-- Image -->
+    <image
+      href="./images/black-arrow.png"
+      x="38"
+      y="8"
+      width="44"
+      height="29"
+      preserveAspectRatio="xMidYMid meet"
+      clip-path="url(#pillClip)"
+    />
+
+    <!-- Border -->
+    <path
+      d="M60 0.5C43.4755 0.5 28.5376 3.01288 17.749 7.05859
+         C12.353 9.08212 8.02094 11.4794 5.04688 14.1162
+         C2.07219 16.7536 0.5 19.5877 0.5 22.5
+         C0.5 25.4123 2.07219 28.2464 5.04688 30.8838
+         C8.02094 33.5206 12.353 35.9179 17.749 37.9414
+         C28.5376 41.9871 43.4755 44.5 60 44.5
+         C76.5245 44.5 91.4624 41.9871 102.251 37.9414
+         C107.647 35.9179 111.979 33.5206 114.953 30.8838
+         C117.928 28.2464 119.5 25.4123 119.5 22.5
+         C119.5 19.5877 117.928 16.7536 114.953 14.1162
+         C111.979 11.4794 107.647 9.08212 102.251 7.05859
+         C91.4624 3.01288 76.5245 0.5 60 0.5Z"
+      fill="none"
+      stroke="#1A1817"
+    />
+  </svg>
+</button>
+
+<button id="next" class="hidden lg:block group">
+  <svg
+    width="120"
+    height="45"
+    viewBox="0 0 120 45"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <!-- Clip path (same shape) -->
+    <defs>
+      <clipPath id="pillClip">
+        <path
+          d="M60 0.5C43.4755 0.5 28.5376 3.01288 17.749 7.05859
+             C12.353 9.08212 8.02094 11.4794 5.04688 14.1162
+             C2.07219 16.7536 0.5 19.5877 0.5 22.5
+             C0.5 25.4123 2.07219 28.2464 5.04688 30.8838
+             C8.02094 33.5206 12.353 35.9179 17.749 37.9414
+             C28.5376 41.9871 43.4755 44.5 60 44.5
+             C76.5245 44.5 91.4624 41.9871 102.251 37.9414
+             C107.647 35.9179 111.979 33.5206 114.953 30.8838
+             C117.928 28.2464 119.5 25.4123 119.5 22.5
+             C119.5 19.5877 117.928 16.7536 114.953 14.1162
+             C111.979 11.4794 107.647 9.08212 102.251 7.05859
+             C91.4624 3.01288 76.5245 0.5 60 0.5Z"
+        />
+      </clipPath>
+    </defs>
+
+    <!-- Image -->
+    <image
+      href="./images/black-arrow.png"
+      x="38"
+      y="8"
+      width="44"
+      height="29"
+      preserveAspectRatio="xMidYMid meet"
+      clip-path="url(#pillClip)"
+    />
+
+    <!-- Border -->
+    <path
+      d="M60 0.5C43.4755 0.5 28.5376 3.01288 17.749 7.05859
+         C12.353 9.08212 8.02094 11.4794 5.04688 14.1162
+         C2.07219 16.7536 0.5 19.5877 0.5 22.5
+         C0.5 25.4123 2.07219 28.2464 5.04688 30.8838
+         C8.02094 33.5206 12.353 35.9179 17.749 37.9414
+         C28.5376 41.9871 43.4755 44.5 60 44.5
+         C76.5245 44.5 91.4624 41.9871 102.251 37.9414
+         C107.647 35.9179 111.979 33.5206 114.953 30.8838
+         C117.928 28.2464 119.5 25.4123 119.5 22.5
+         C119.5 19.5877 117.928 16.7536 114.953 14.1162
+         C111.979 11.4794 107.647 9.08212 102.251 7.05859
+         C91.4624 3.01288 76.5245 0.5 60 0.5Z"
+      fill="none"
+      stroke="#1A1817"
+    />
+  </svg>
+</button>
+
+ </div>
+  <div class=" xl:hidden mt-10">
+
+    <!-- Swiper -->
+    <div class="swiper testimonialSwiper">
+      <div class="swiper-wrapper">
+
+       <!-- CARD -->
+
+      <div class="swiper-slide w-[291px] ">
+        <div class="h-[291px] p-[20px] 
+         bg-[linear-gradient(180deg,#1c1c1c,#0f0f0f)]
+         text-white flex-shrink-0
+         flex flex-col justify-between">
+        <div class="flex">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+        </div>
+        <h3 class="font-raleway font-bold italic text-lg">Manchester</h3>
+        <p class="font-raleway font-medium text-base">
+          Beautifully restrained. The stems feel intentional and elevated—the
+          room without ever demanding attention.
+        </p>
+        <span class="text-lg font-semibold font-raleway text-[#919191]">Laura P.</span>
+        </div>
+      </div>  
+
+      <div class="swiper-slide w-[291px] ">
+        <div class="h-[291px] p-[20px] 
+         bg-[linear-gradient(180deg,#1c1c1c,#0f0f0f)]
+         text-white flex-shrink-0
+         flex flex-col justify-between">
+        <div class="flex">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+        </div>
+        <h3 class="font-raleway font-bold italic text-lg">Liverpool</h3>
+        <p class="font-raleway font-medium text-base">
+          Ivy Avenue stems feel more like design objects than décor. They sit
+          beautifully in natural light.
+        </p>
+        <span class="text-lg font-semibold font-raleway text-[#919191]">Emma R.</span>
+        </div>
+      </div>
+
+      <div class="swiper-slide w-[291px] ">
+        <div class="h-[291px] p-[20px] 
+         bg-[linear-gradient(180deg,#1c1c1c,#0f0f0f)]
+         text-white flex-shrink-0
+         flex flex-col justify-between">
+        <div class="flex">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+        </div>
+        <h3 class="font-raleway font-bold italic text-lg">Leicester</h3>
+        <p class="font-raleway font-medium text-base">
+          From the packaging to the final styling—everything felt thoughtful
+          and refined.
+        </p>
+        <span class="text-lg font-semibold font-raleway text-[#919191]">James L.</span>
+        </div>
+      </div>
+
+      <div class="swiper-slide w-[291px] ">
+        <div class="h-[291px] p-[20px] 
+         bg-[linear-gradient(180deg,#1c1c1c,#0f0f0f)]
+         text-white flex-shrink-0
+         flex flex-col justify-between">
+        <div class="flex">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+        </div>
+        <h3 class="font-raleway font-bold italic text-lg">Coventry</h3>
+        <p class="font-raleway font-medium text-base">
+          I love how understated everything feels while still holding presence.
+        </p>
+        <span class="text-lg font-semibold font-raleway text-[#919191]">Sophie M.</span>
+        </div>
+      </div>  
+
+      <div class="swiper-slide w-[291px] ">
+        <div class="h-[291px] p-[20px] 
+         bg-[linear-gradient(180deg,#1c1c1c,#0f0f0f)]
+         text-white flex-shrink-0
+         flex flex-col justify-between">
+        <div class="flex">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+        </div>
+        <h3 class="font-raleway font-bold italic text-lg">Oxford</h3>
+        <p class="font-raleway font-medium text-base">
+          Elegant, modern, and incredibly well balanced. Perfect for evenings.
+        </p>
+       <span class="text-lg font-semibold font-raleway text-[#919191]">Daniel K.</span>
+        </div>
+      </div>  
+
+      <div class="swiper-slide w-[291px] ">
+        <div class="h-[291px] p-[20px] 
+         bg-[linear-gradient(180deg,#1c1c1c,#0f0f0f)]
+         text-white flex-shrink-0
+         flex flex-col justify-between">
+        <div class="flex">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+          <img src="./images/Star.png" alt="">
+        </div>
+        <h3 class="font-raleway font-bold italic text-lg">Glasgow</h3>
+        <p class="font-raleway font-medium text-base">
+          Elegant, modern, and incredibly well balanced. Perfect for evenings.
+        </p>
+        <span class="text-lg font-semibold font-raleway text-[#919191]">Daniel K.</span>
+        </div>
+      </div>  
+
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="flex gap-8 justify-center mt-6">
+
+      <button  class="swiper-prev  relative w-[120px] h-[56px] group
+         flex items-center justify-center">
+                            <!-- SVG shape -->
+                            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 180 56" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M90 0.5C114.817 0.5 137.266 3.58114 153.493 8.55078C161.61 11.0365 168.142 13.9868 172.634 17.2393C177.137 20.4999 179.5 23.9946 179.5 27.5625C179.5 31.1304 177.137 34.6251 172.634 37.8857C168.142 41.1382 161.61 44.0885 153.493 46.5742C137.266 51.5439 114.817 54.625 90 54.625C65.1826 54.625 42.7343 51.5439 26.5068 46.5742C18.3901 44.0885 11.8582 41.1382 7.36621 37.8857C2.86295 34.6251 0.5 31.1304 0.5 27.5625C0.5 23.9946 2.86295 20.4999 7.36621 17.2393C11.8582 13.9868 18.3901 11.0365 26.5068 8.55078C42.7343 3.58114 65.1826 0.5 90 0.5Z"
+                                    fill="none" stroke="#1A1817" class="group-hover:shadow-sm transition" />
+                            </svg>
+
+                            <!-- Button text -->
+                            <span class="relative z-10  font-medium text-sm tracking-wide text-[#1A1817]
+           group-hover:shadow-sm transition">
+                               <img src="./images/black-arrow.png" class="rotate-180 w-14" alt="">
+                            </span>
+                        </button>
+
+                        <button  class="swiper-next  relative w-[120px] h-[56px] group
+         flex items-center justify-center">
+                            <!-- SVG shape -->
+                            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 180 56" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M90 0.5C114.817 0.5 137.266 3.58114 153.493 8.55078C161.61 11.0365 168.142 13.9868 172.634 17.2393C177.137 20.4999 179.5 23.9946 179.5 27.5625C179.5 31.1304 177.137 34.6251 172.634 37.8857C168.142 41.1382 161.61 44.0885 153.493 46.5742C137.266 51.5439 114.817 54.625 90 54.625C65.1826 54.625 42.7343 51.5439 26.5068 46.5742C18.3901 44.0885 11.8582 41.1382 7.36621 37.8857C2.86295 34.6251 0.5 31.1304 0.5 27.5625C0.5 23.9946 2.86295 20.4999 7.36621 17.2393C11.8582 13.9868 18.3901 11.0365 26.5068 8.55078C42.7343 3.58114 65.1826 0.5 90 0.5Z"
+                                    fill="none" stroke="#1A1817" class="group-hover:shadow-sm transition" />
+                            </svg>
+
+                            <!-- Button text -->
+                            <span class="relative z-10  font-medium text-sm tracking-wide text-[#1A1817]
+           group-hover:shadow-sm transition">
+                               <img src="./images/black-arrow.png" class="w-14" alt="">
+                            </span>
+                        </button>
+    </div>
+
+  </div>
+  </section>
+   
+
+  <!-- ================= Gallery-Tab Section ================= -->
+  <section id="gallery" class="bg-[#f4f4f4] py-10 md:py-20 px-4 md:px-10 lg:px-[100px] reveal-left">
+    <!-- Content wrapper -->
+    <div class="relative max-w-7xl mx-auto ">
+
+      <!-- Heading -->
+      <div class="text-center mx-auto">
+        <h2 class="font-display text-4xl md:text-[55px] leading-normal">
+          Styled Moments
+        </h2>
+        <p class=" font-raleway font-medium text-lg text-[#333333]">
+          Curated moments showcasing our florals across different settings and occasions.
+        </p>
+      </div>
+      <div class=" mt-8 flex justify-center mb-10">
+        <div
+          class="flex flex-col md:flex-row md:rounded-full border border-black px-8 py-1.5 md:p-1.5 lg:p-2.5 text-md">
+
+          <button class="tab-btn py-2 px-4 lg:py-4 lg:px-6 font-raleway font-semibold text-base rounded-full active-tab"
+            data-tab="all">All</button>
+          <button class="tab-btn py-2 px-4 lg:py-4 lg:px-6 font-raleway font-semibold text-base rounded-full"
+            data-tab="weddings">Weddings</button>
+          <button class="tab-btn py-2 px-4 lg:py-4 lg:px-6 font-raleway font-semibold text-base rounded-full"
+            data-tab="corporate">Corporate Events</button>
+          <button class="tab-btn py-2 px-4 lg:py-4 lg:px-6 font-raleway font-semibold text-base rounded-full"
+            data-tab="interior">Interior Styling</button>
+          <button class="tab-btn py-2 px-4 lg:py-4 lg:px-6 font-raleway font-semibold text-base rounded-full"
+            data-tab="seasonal">Seasonal Displays</button>
+
+        </div>
+      </div>
+
+      <!-- Tab Content -->
+      <div class="tab-content active-grid" id="all">
+        <div class="grid grid-cols-3 gap-3 md:gap-6">
+          <img src="./images/tabimg1.png"
+            class="w-32 h-32 md:w-[395px] md:h-[200px] lg:h-[420px] object-cover bg-[#e5e5e5] grayscale hover:grayscale-0" />
+          <img src="./images/tabimg2.png"
+            class="w-32 h-32 md:w-[395px] md:h-[200px] lg:h-[420px] object-cover bg-[#e5e5e5] grayscale hover:grayscale-0" />
+          <img src="./images/tabimg3.png"
+            class="w-32 h-32 md:w-[395px] md:h-[200px] lg:h-[420px] object-cover bg-[#e5e5e5] grayscale hover:grayscale-0" />
+          <img src="./images/tabimg4.png"
+            class="w-32 h-32 md:w-[395px] md:h-[200px] lg:h-[420px] object-cover bg-[#e5e5e5] grayscale hover:grayscale-0" />
+          <img src="./images/tabimg5.png"
+            class="w-32 h-32 md:w-[395px] md:h-[200px] lg:h-[420px] object-cover bg-[#e5e5e5] grayscale hover:grayscale-0" />
+          <img src="./images/tabimg6.png"
+            class="w-32 h-32 md:w-[395px] md:h-[200px] lg:h-[420px] object-cover bg-[#e5e5e5] grayscale hover:grayscale-0" />
+        </div>
+      </div>
+      <div class="tab-content active-grid hidden" id="weddings">
+        <div class="grid grid-cols-3 gap-3 md:gap-6">
+          <img src="./images/tabimg1.png"
+            class="w-32 h-32 md:w-[395px] md:h-[200px] lg:h-[420px] object-cover bg-[#e5e5e5] grayscale hover:grayscale-0" />
+          <img src="./images/tabimg3.png"
+            class="w-32 h-32 md:w-[395px] md:h-[200px] lg:h-[420px] object-cover bg-[#e5e5e5] grayscale hover:grayscale-0" />
+          <img src="./images/tabimg4.png"
+            class="w-32 h-32 md:w-[395px] md:h-[200px] lg:h-[420px] object-cover bg-[#e5e5e5] grayscale hover:grayscale-0" />
+        </div>
+      </div>
+      <div class="tab-content active-grid hidden" id="corporate">
+        <div class="grid grid-cols-3 gap-3 md:gap-6">
+
+          <img src="./images/tabimg5.png"
+            class="w-32 h-32 md:w-[395px] md:h-[200px] lg:h-[420px] object-cover bg-[#e5e5e5] grayscale hover:grayscale-0" />
+          <img src="./images/tabimg6.png"
+            class="w-32 h-32 md:w-[395px] md:h-[200px] lg:h-[420px] object-cover bg-[#e5e5e5] grayscale hover:grayscale-0" />
+          <img src="./images/tabimg2.png"
+            class="w-32 h-32 md:w-[395px] md:h-[200px] lg:h-[420px] object-cover bg-[#e5e5e5] grayscale hover:grayscale-0" />
+        </div>
+      </div>
+      <div class="tab-content active-grid hidden" id="interior">
+        <div class="grid grid-cols-3 gap-3 md:gap-6">
+          <img src="./images/tabimg1.png"
+            class="w-32 h-32 md:w-[395px] md:h-[200px] lg:h-[420px] object-cover bg-[#e5e5e5] grayscale hover:grayscale-0" />
+          <img src="./images/tabimg5.png"
+            class="w-32 h-32 md:w-[395px] md:h-[200px] lg:h-[420px] object-cover bg-[#e5e5e5] grayscale hover:grayscale-0" />
+          <img src="./images/tabimg6.png"
+            class="w-32 h-32 md:w-[395px] md:h-[200px] lg:h-[420px] object-cover bg-[#e5e5e5] grayscale hover:grayscale-0" />
+        </div>
+      </div>
+      <div class="tab-content active-grid hidden" id="seasonal">
+        <div class="grid grid-cols-3 gap-3 md:gap-6">
+          <img src="./images/tabimg1.png"
+            class="w-32 h-32 md:w-[395px] md:h-[200px] lg:h-[420px] object-cover bg-[#e5e5e5] grayscale hover:grayscale-0" />
+          <img src="./images/tabimg2.png"
+            class="w-32 h-32 md:w-[395px] md:h-[200px] lg:h-[420px] object-cover bg-[#e5e5e5] grayscale hover:grayscale-0" />
+          <img src="./images/tabimg3.png"
+            class="w-32 h-32 md:w-[395px] md:h-[200px] lg:h-[420px] object-cover bg-[#e5e5e5] grayscale hover:grayscale-0" />
+        </div>
+      </div>
+
+      <!-- Load More -->
+      <div class="flex justify-center mt-7 md:mt-14">
+        <button class=" relative w-[180px] h-[56px] group
+         flex items-center justify-center">
+          <!-- SVG shape -->
+          <svg class="absolute inset-0 w-full h-full" viewBox="0 0 180 56" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M90 0.5C114.817 0.5 137.266 3.58114 153.493 8.55078C161.61 11.0365 168.142 13.9868 172.634 17.2393C177.137 20.4999 179.5 23.9946 179.5 27.5625C179.5 31.1304 177.137 34.6251 172.634 37.8857C168.142 41.1382 161.61 44.0885 153.493 46.5742C137.266 51.5439 114.817 54.625 90 54.625C65.1826 54.625 42.7343 51.5439 26.5068 46.5742C18.3901 44.0885 11.8582 41.1382 7.36621 37.8857C2.86295 34.6251 0.5 31.1304 0.5 27.5625C0.5 23.9946 2.86295 20.4999 7.36621 17.2393C11.8582 13.9868 18.3901 11.0365 26.5068 8.55078C42.7343 3.58114 65.1826 0.5 90 0.5Z"
+              fill="#F4F4F4" stroke="#1A1817" class="group-hover:fill-[#1A1817] transition" />
+          </svg>
+
+          <!-- Button text -->
+          <span class="relative z-10  font-medium text-base tracking-wide text-[#1A1817]
+           group-hover:text-white transition">
+            Load More
+          </span>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= Footer Section ================= -->
+  <section class="bg-[#1A1817] text-[#f4f4f4] reveal">
+    <div class="max-w-8xl mx-auto px-10 lg:px-[100px] pt-10 md:pt-20 pb-6">
+
+      <!-- TOP FEATURE GRID -->
+      <div class="grid md:grid-cols-3 gap-12 text-center ">
+
+        <!-- Item -->
+        <div>
+          <div class="flex justify-center mb-6">
+            <img src="./images/heart.png" class="w-18 h-18" alt="">
+          </div>
+          <h3 class="font-display text-2xl lg:text-3xl text-[#f4f4f4] mb-3">Bespoke Styling</h3>
+          <p class="text-base text-center text-white/70 max-w-xs mx-auto mb-6">
+            Thoughtfully designed arrangements tailored to your space or event.
+          </p>
+          <a href="#" class="relative w-[216px] h-[55px] group mx-auto
+         flex items-center justify-center">
+            <svg width="216" height="55" viewBox="0 0 216 55" xmlns="http://www.w3.org/2000/svg">
+              <!-- Shape -->
+              <path d="M108 0.5C137.794 0.5 164.751 3.57549 184.244 8.53906
+         C193.995 11.0218 201.85 13.9705 207.255 17.2246
+         C212.691 20.4973 215.5 23.9845 215.5 27.5
+         C215.5 31.0155 212.691 34.5027 207.255 37.7754
+         C201.85 41.0295 193.995 43.9782 184.244 46.4609
+         C164.751 51.4245 137.794 54.5 108 54.5
+         C78.2058 54.5 51.2492 51.4245 31.7559 46.4609
+         C22.0054 43.9782 14.1505 41.0295 8.74512 37.7754
+         C3.30894 34.5027 0.5 31.0155 0.5 27.5
+         C0.5 23.9845 3.30893 20.4973 8.74512 17.2246
+         C14.1505 13.9705 22.0054 11.0218 31.7559 8.53906
+         C51.2492 3.57549 78.2058 0.5 108 0.5Z" fill="transparent" stroke="#f4f4f4"
+                class="group-hover:fill-[#f4f4f4] transition" />
+
+              <!-- Text -->
+              <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#f4f4f4" class="font-semibold font-raleway text-base tracking-wide group-hover:fill-[#1A1817]
+           group-hover:text-white transition">
+                Explore Services
+              </text>
+            </svg>
+          </a>
+
+        </div>
+
+        <div>
+          <div class="flex justify-center mb-6">
+            <img src="./images/enelop.png" class="w-18 h-18" alt="">
+          </div>
+          <h3 class="font-display text-2xl lg:text-3xl text-[#f4f4f4] mb-3">Speak With Us</h3>
+          <p class="text-base text-center text-white/70 max-w-xs mx-auto mb-6">
+            Our team is available to guide you through every detail.
+          </p>
+
+          <a href="#" class="relative w-[154px] h-[55px] group mx-auto
+         flex items-center justify-center">
+            <svg width="154" height="55" viewBox="0 0 154 55" xmlns="http://www.w3.org/2000/svg" class="svg-btn">
+              <!-- Button Shape -->
+              <path d="M77 0.5C98.2212 0.5 117.412 3.57275 131.279 8.52539
+         C138.215 11.0024 143.792 13.9405 147.626 17.1777
+         C151.462 20.417 153.5 23.9073 153.5 27.5
+         C153.5 31.0927 151.462 34.583 147.626 37.8223
+         C143.792 41.0595 138.215 43.9976 131.279 46.4746
+         C117.412 51.4272 98.2212 54.5 77 54.5
+         C55.7788 54.5 36.5881 51.4272 22.7207 46.4746
+         C15.7851 43.9976 10.2079 41.0595 6.37402 37.8223
+         C2.53774 34.583 0.5 31.0927 0.5 27.5
+         C0.5 23.9073 2.53774 20.417 6.37402 17.1777
+         C10.2079 13.9405 15.7851 11.0024 22.7207 8.52539
+         C36.5881 3.57275 55.7788 0.5 77 0.5Z" fill="transparent" stroke="#f4f4f4" stroke-width="1"
+                class="group-hover:fill-[#f4f4f4] transition-all" />
+
+              <!-- Button Text -->
+              <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#f4f4f4"
+                class="relative z-10 font-semibold text-base tracking-wide font-raleway group-hover:fill-[#1A1817] transition">
+                Contact Us
+              </text>
+            </svg>
+          </a>
+
+        </div>
+
+        <div>
+          <div class="flex justify-center mb-6">
+            <img src="./images/location.png" class="w-18 h-18" alt="">
+          </div>
+          <h3 class="font-display text-2xl lg:text-3xl text-[#f4f4f4] mb-3">Areas We Serve</h3>
+          <p class="text-base text-center text-white/70 max-w-xs mx-auto mb-6">
+            Providing services across the UK with consistent quality.
+          </p>
+          <a href="#" class="relative w-[216px] h-[55px] group mx-auto
+         flex items-center justify-center">
+            <svg width="216" height="55" viewBox="0 0 216 55" xmlns="http://www.w3.org/2000/svg">
+              <!-- Shape -->
+              <path d="M108 0.5C137.794 0.5 164.751 3.57549 184.244 8.53906
+         C193.995 11.0218 201.85 13.9705 207.255 17.2246
+         C212.691 20.4973 215.5 23.9845 215.5 27.5
+         C215.5 31.0155 212.691 34.5027 207.255 37.7754
+         C201.85 41.0295 193.995 43.9782 184.244 46.4609
+         C164.751 51.4245 137.794 54.5 108 54.5
+         C78.2058 54.5 51.2492 51.4245 31.7559 46.4609
+         C22.0054 43.9782 14.1505 41.0295 8.74512 37.7754
+         C3.30894 34.5027 0.5 31.0155 0.5 27.5
+         C0.5 23.9845 3.30893 20.4973 8.74512 17.2246
+         C14.1505 13.9705 22.0054 11.0218 31.7559 8.53906
+         C51.2492 3.57549 78.2058 0.5 108 0.5Z" fill="transparent" stroke="#f4f4f4"
+                class="group-hover:fill-[#f4f4f4] transition" />
+
+              <!-- Text -->
+              <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#f4f4f4" class="font-semibold font-raleway text-base tracking-wide group-hover:fill-[#1A1817]
+           group-hover:text-white transition">
+                View Locations
+              </text>
+            </svg>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Divider -->
+      <div class="border-t border-white/30 mt-16 mb-16"></div>
+
+      <!-- FOOTER LINKS GRID -->
+      <div class="grid  md:grid-cols-2 lg:grid-cols-4 gap-[80px] xl:gap-[160px] mb-20 text-sm">
+
+        <div>
+          <h4 class="text-2xl font-display mb-4">Quick Links</h4>
+          <ul class="space-y-8 text-[#f4f4f4]">
+            <li><a href="./collection.html" class="p-2.5 font-raleway text-base">Shop</a></li>
+            <li><a href="#about" class="p-2.5 font-raleway text-base">About</a></li>
+            <li><a href="#edit" class="p-2.5 font-raleway text-base">Journal</a></li>
+            <li><a href="#gallery" class="p-2.5 font-raleway text-base">Gallery</a></li>
+            <li><a href="#contact" class="p-2.5 font-raleway text-base">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-2xl font-display mb-4">Our Solutions</h4>
+          <ul class="space-y-8 text-[#f4f4f4]">
+            <li><a href="#" class="p-2.5 font-raleway text-base">Minimal Stems</a></li>
+            <li><a href="#" class="p-2.5 font-raleway text-base">Sculptural Botanicals</a></li>
+            <li><a href="#" class="p-2.5 font-raleway text-base">Long-Stem Florals</a></li>
+            <li><a href="#" class="p-2.5 font-raleway text-base">Seasonal Editions</a></li>
+            <li><a href="#" class="p-2.5 font-raleway text-base">Soft Silhouettes</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-2xl font-display mb-4">Legal Links</h4>
+          <ul class="space-y-8 text-[#f4f4f4]">
+            <li><a href="#" class="p-2.5 font-raleway text-base">Terms & Conditions</a></li>
+            <li><a href="#" class="p-2.5 font-raleway text-base">Privacy Policy</a></li>
+            <li><a href="#" class="p-2.5 font-raleway text-base">Legal Notices</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-2xl font-display mb-4 ">Follow Us On</h4>
+          <div class="space-y-5">
+            <a href="#" class="relative  w-[155px] h-[55px]  group
+         flex items-center justify-center">
+              <svg width="155" height="55" viewBox="0 0 155 55" xmlns="http://www.w3.org/2000/svg"
+                class="cursor-pointer">
+                <!-- Button Shape -->
+                <path
+                  d="M77.875 0.5C99.0962 0.5 118.287 3.57275 132.154 8.52539C139.09 11.0024 144.667 13.9405 148.501 17.1777C152.337 20.417 154.375 23.9073 154.375 27.5C154.375 31.0927 152.337 34.583 148.501 37.8223C144.667 41.0595 139.09 43.9976 132.154 46.4746C118.287 51.4272 99.0962 54.5 77.875 54.5C56.6538 54.5 37.4631 51.4272 23.5957 46.4746C16.6601 43.9976 11.0829 41.0595 7.24902 37.8223C3.41274 34.583 1.375 31.0927 1.375 27.5C1.375 23.9073 3.41274 20.417 7.24902 17.1777C11.0829 13.9405 16.6601 11.0024 23.5957 8.52539C37.4631 3.57275 56.6538 0.5 77.875 0.5Z"
+                  fill="transparent" stroke="#f4f4f4" stroke-width="1"
+                  class="group-hover:fill-[#f4f4f4] transition-all" />
+
+                <!-- Button Text -->
+                <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" fill="#f4f4f4"
+                  class="font-semibold font-raleway text-base tracking-wide group-hover:fill-[#1A1817] transition-all">
+                  Facebook
+                </text>
+              </svg>
+            </a>
+            <a href="#" class="relative  w-[155px] h-[55px]  group
+         flex items-center justify-center">
+              <svg width="155" height="55" viewBox="0 0 155 55" xmlns="http://www.w3.org/2000/svg"
+                class="cursor-pointer">
+                <!-- Button Shape -->
+                <path
+                  d="M77.875 0.5C99.0962 0.5 118.287 3.57275 132.154 8.52539C139.09 11.0024 144.667 13.9405 148.501 17.1777C152.337 20.417 154.375 23.9073 154.375 27.5C154.375 31.0927 152.337 34.583 148.501 37.8223C144.667 41.0595 139.09 43.9976 132.154 46.4746C118.287 51.4272 99.0962 54.5 77.875 54.5C56.6538 54.5 37.4631 51.4272 23.5957 46.4746C16.6601 43.9976 11.0829 41.0595 7.24902 37.8223C3.41274 34.583 1.375 31.0927 1.375 27.5C1.375 23.9073 3.41274 20.417 7.24902 17.1777C11.0829 13.9405 16.6601 11.0024 23.5957 8.52539C37.4631 3.57275 56.6538 0.5 77.875 0.5Z"
+                  fill="transparent" stroke="#f4f4f4" stroke-width="1"
+                  class="group-hover:fill-[#f4f4f4] transition-all" />
+
+                <!-- Button Text -->
+                <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" fill="#f4f4f4"
+                  class="font-semibold font-raleway text-base tracking-wide group-hover:fill-[#1A1817] transition-all">
+                  Twitter
+                </text>
+              </svg>
+            </a>
+            <a href="#" class="relative  w-[155px] h-[55px]  group
+         flex items-center justify-center">
+              <svg width="155" height="55" viewBox="0 0 155 55" xmlns="http://www.w3.org/2000/svg"
+                class="cursor-pointer">
+                <!-- Button Shape -->
+                <path
+                  d="M77.875 0.5C99.0962 0.5 118.287 3.57275 132.154 8.52539C139.09 11.0024 144.667 13.9405 148.501 17.1777C152.337 20.417 154.375 23.9073 154.375 27.5C154.375 31.0927 152.337 34.583 148.501 37.8223C144.667 41.0595 139.09 43.9976 132.154 46.4746C118.287 51.4272 99.0962 54.5 77.875 54.5C56.6538 54.5 37.4631 51.4272 23.5957 46.4746C16.6601 43.9976 11.0829 41.0595 7.24902 37.8223C3.41274 34.583 1.375 31.0927 1.375 27.5C1.375 23.9073 3.41274 20.417 7.24902 17.1777C11.0829 13.9405 16.6601 11.0024 23.5957 8.52539C37.4631 3.57275 56.6538 0.5 77.875 0.5Z"
+                  fill="transparent" stroke="#f4f4f4" stroke-width="1"
+                  class="group-hover:fill-[#f4f4f4] transition-all" />
+
+                <!-- Button Text -->
+                <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" fill="#f4f4f4"
+                  class="font-semibold font-raleway text-base tracking-wide group-hover:fill-[#1A1817] transition-all">
+                  Instagram
+                </text>
+              </svg>
+            </a>
+
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- NEWSLETTER -->
+      <div id="contact" class="border border-[#FFFFFF] rounded-2xl p-8 md:pt-10 md:pb-12 md:px-14 mb-5 bg-white/5">
+        <div class="grid md:grid-cols-2 gap-10 items-center">
+
+          <div>
+            <h3 class="font-display text-white text-[42px] italic leading-relaxed mb-0">Join the Ivy Circle</h3>
+            <p class="text-base text-white italic">
+              Early access to new stems and seasonal edits.
+            </p>
+          </div>
+
+          <form class="flex flex-col lg:flex-row gap-4 border-b border-white/40 pb-6">
+            <input type="email" placeholder="Enter Your Email Address"
+              class="flex-1 bg-transparent font-raleway   px-2 py-1 text-base text-white/50 focus:outline-none" />
+            <button class="relative w-[154px] h-[55px] group
+         flex items-center justify-center">
+              <svg width="154" height="55" viewBox="0 0 154 55" xmlns="http://www.w3.org/2000/svg" class="svg-btn">
+                <!-- Button Shape -->
+                <path d="M77 0.5C98.2212 0.5 117.412 3.57275 131.279 8.52539
+         C138.215 11.0024 143.792 13.9405 147.626 17.1777
+         C151.462 20.417 153.5 23.9073 153.5 27.5
+         C153.5 31.0927 151.462 34.583 147.626 37.8223
+         C143.792 41.0595 138.215 43.9976 131.279 46.4746
+         C117.412 51.4272 98.2212 54.5 77 54.5
+         C55.7788 54.5 36.5881 51.4272 22.7207 46.4746
+         C15.7851 43.9976 10.2079 41.0595 6.37402 37.8223
+         C2.53774 34.583 0.5 31.0927 0.5 27.5
+         C0.5 23.9073 2.53774 20.417 6.37402 17.1777
+         C10.2079 13.9405 15.7851 11.0024 22.7207 8.52539
+         C36.5881 3.57275 55.7788 0.5 77 0.5Z" fill="transparent" stroke="#f4f4f4" stroke-width="1"
+                  class="group-hover:fill-[#f4f4f4] transition-all" />
+
+                <!-- Button Text -->
+                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#f4f4f4"
+                  class="relative z-10 font-semibold text-base tracking-wide  group-hover:fill-[#1A1817] transition">
+                  Submit
+                </text>
+              </svg>
+            </button>
+
+          </form>
+
+        </div>
+      </div>
+
+      <!-- BOTTOM BAR -->
+      <div class="text-center text-lg leading-normal text-white">
+        © 2026 Ivy Avenue. All Rights Reserved.
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= Swiper JS ================= -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="./js/slider.js"></script>
+  <script src="./js/swiper.js"></script>
+
+
+  <!-- ================= Tab JS ================= -->
+  <script src="./js/tab.js"></script>
+
+
+  <!-- ================= Scroll Reveal ================= -->
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <script src="./js/scroll.js"></script>
+
+
+  <!-- ================= Product JS ================= -->
+  <script src="./js/product.js"></script>
+  <script src="./js/global.js"></script>
+
+</body>
+
+</html>
