@@ -1,0 +1,29 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+     .font-display{
+        font-family: "Playfair Display", serif;
+     }
+     .font-raleway{
+        font-family: "Raleway", sans-serif;
+     }
+  
+   .tab-btn {
+    transition: all 0.3s ease;
+  }
+
+  .active-tab {
+    padding: 15px 35px;
+    background: black;
+    color: white;
+  }
+
+
+
+  /* CARD WIDTH IS THE KEY */
+  .testimonialSwiper .swiper-slide {
+  width: 291px;     /* exact full card width */
+}
